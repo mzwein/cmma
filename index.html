@@ -1,261 +1,231 @@
-<!-- HubSpot Embed Code -->
-<div class="cmma-assessment-container">
-  <div id="intro" class="slide active">
-    <div class="intro-content">
-      <h2 style="color:var(--primary);">Ready To Make Your Organization Stronger?</h2>
-      <p>Take the Assessment Now.</p>
-      <p>Rate your organization on a scale of 1–5 for each of the following questions.</p>
-    </div>
-    <div class="nav-buttons centered">
-      <button id="startButton">Begin</button>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Change Management Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html {
+      font-size: 16px;
+    }
+    body {
+      font-size: 1rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Open Sans', sans-serif;
+      background-color: transparent;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    :root {
+      --primary: #342a86;
+      --light-tan: #e2d6c4;
+      --hover: #241d66;
+      --disabled: #AFC9E0;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 600px;
+      min-height: 600px;
+      padding-block: 2rem;
+      box-sizing: border-box;
+    }
+    .slide.active {
+      display: block;
+    }
+    .question-slide.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .question-slide-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .question-wrapper {
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .question {
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+      font-size: 1.1rem;
+      color: var(--primary);
+      min-height: 4rem;
+    }
+    .bottom-controls {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .scale-container {
+      width: 100%;
+    }
+    .slider-wrapper {
+      margin: 0;
+      min-height: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 14px;
+      background: var(--light-tan);
+      border-radius: 7px;
+      appearance: none;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid white;
+      margin-top: -5px;
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid white;
+      cursor: pointer;
+    }
+    .number-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-top: 0.25rem;
+      width: 97%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dynamic-label {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-top: 0.6rem;
+      min-height: 1.5rem;
+    }
+    .dynamic-label.fade {
+      animation: fadeInText 0.3s ease-in-out;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-buttons.centered {
+      justify-content: center;
+    }
+    #intro p,
+    #resultSlide p {
+      font-size: 1rem;
+      color: black;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    #intro .nav-buttons.centered {
+      margin-top: 3rem;
+    }
+    #resultSlide .nav-buttons {
+      margin-top: 2.5rem;
+    }
+    button {
+      padding: 0.8rem 1.4rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: var(--primary);
+      color: white;
+      transition: background 0.2s;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    button:disabled {
+      background: var(--disabled);
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background: var(--hover);
+    }
+    .result {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: var(--primary);
+    }
+    .progress {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: black;
+    }
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+      .nav-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      button {
+        padding: 1rem;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="intro" class="slide active">
+  <div class="intro-content">
+    <h2 style="color:var(--primary);">Ready To Make Your Organization Stronger?</h2>
+    <p>Take the Assessment Now.</p>
+    <p>Rate your organization on a scale of 1–5 for each of the following questions.</p>
   </div>
-  <div id="questions-container"></div>
-  <div id="resultSlide" class="slide">
-    <h2 style="color:var(--primary);">Your Assessment Result</h2>
-    <div id="resultText" class="result"></div>
-    <div id="nextMove" style="margin-top:1rem"></div>
-    <div class="nav-buttons">
-      <button type="button" id="backResult">Back</button>
-      <button type="button" id="restartBtn">Start Over</button>
-    </div>
+  <div class="nav-buttons centered">
+    <button id="startButton">Begin</button>
   </div>
 </div>
-
-<style>
-  .cmma-assessment-container {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
-    background: white;
-  }
-
-  /* Remove parent container styles as they won't work in HubSpot */
-  .cmma-assessment-container:parent {
-    display: none;
-  }
-
-  /* HubSpot specific targeting */
-  .hs_cos_wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-    width: 100%;
-  }
-  :root {
-    --primary: #342a86;
-    --light-tan: #e2d6c4;
-    --hover: #241d66;
-    --disabled: #AFC9E0;
-  }
-  .slide {
-    display: none;
-    max-width: 600px;
-    width: 100%;
-    min-height: 400px;
-    padding: 2rem;
-    box-sizing: border-box;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  .slide.active { 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .question-slide.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .question-slide-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    gap: 2rem;
-  }
-  .question-wrapper {
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  .question {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--primary);
-    min-height: 4rem;
-    margin-bottom: 0.45rem;
-  }
-  .bottom-controls {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .scale-container { width: 100%; }
-  .slider-wrapper {
-    margin: 0;
-    min-height: 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  /* === SLIDER CROSS-BROWSER STYLES === */
-  input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 14px;
-    background: var(--light-tan);
-    border-radius: 7px;
-    outline: none;
-    margin: 0;
-    padding: 0;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    cursor: pointer;
-    margin-top: -5px;
-    transition: background .2s;
-  }
-  input[type="range"]::-moz-range-thumb {
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: background .2s;
-  }
-  input[type="range"]::-ms-thumb {
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: 2px solid #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    cursor: pointer;
-    transition: background .2s;
-  }
-  input[type="range"]::-moz-focus-outer { border: 0; }
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 14px;
-    background: var(--light-tan);
-    border-radius: 7px;
-  }
-  input[type="range"]::-moz-range-track {
-    height: 14px;
-    background: var(--light-tan);
-    border-radius: 7px;
-  }
-  input[type="range"]::-ms-fill-lower,
-  input[type="range"]::-ms-fill-upper {
-    background: var(--light-tan);
-    border-radius: 7px;
-  }
-  input[type="range"]:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  input[type="range"] { background: var(--light-tan); }
-
-  .number-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--primary);
-    font-weight: 500;
-    margin-top: 0.25rem;
-    width: 97%;
-    margin-inline: auto;
-  }
-  .dynamic-label {
-    text-align: center;
-    font-size: 0.95rem;
-    color: var(--primary);
-    font-weight: 700;
-    margin-top: 0.6rem;
-    min-height: 1.5rem;
-    transition: opacity .2s;
-  }
-  .dynamic-label.fade {
-    animation: fadeInText 0.3s ease-in-out;
-  }
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .nav-buttons.centered { justify-content: center; }
-  #intro p, #resultSlide p {
-    font-size: 1rem;
-    color: #000;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-  #intro .nav-buttons.centered { margin-top: 3rem; }
-  #resultSlide .nav-buttons { margin-top: 2.5rem; }
-  button {
-    padding: 0.8rem 1.4rem;
-    font-size: 1rem;
-    font-weight: 700;
-    border: none;
-    border-radius: 6px;
-    background: var(--primary);
-    color: #fff;
-    cursor: pointer;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-    text-align: center;
-  }
-  button:disabled {
-    background: var(--disabled);
-    cursor: not-allowed;
-  }
-  button:hover:not(:disabled) { background: var(--hover); }
-  .result {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color: var(--primary);
-  }
-  .progress {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-    color: #000;
-  }
-  @keyframes fadeInText {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @media (max-width: 480px) {
-    .cmma-assessment-container { padding: 1rem; }
-    .nav-buttons { flex-direction: column; align-items: stretch; }
-    button { padding: 1rem; width: 100%; }
-  }
-</style>
-
+<div id="questions-container"></div>
+<div id="resultSlide" class="slide">
+  <h2 style="color:var(--primary);">Your Assessment Result</h2>
+  <div id="resultText" class="result"></div>
+  <div id="nextMove" style="margin-top: 1rem;"></div>
+  <div class="nav-buttons">
+    <button onclick="showSlide(1)">Back</button>
+    <button onclick="resetAssessment()">Start Over</button>
+  </div>
+</div>
 <script>
   const questions = [
     "Our leadership actively supports and promotes change management practices across the organization.",
@@ -273,7 +243,6 @@
   };
   const container = document.getElementById('questions-container');
   const sliderTouched = {};
-  // Build slides
   questions.forEach((text, i) => {
     const slide = document.createElement('div');
     slide.className = 'slide question-slide';
@@ -286,7 +255,7 @@
         <div class="bottom-controls">
           <div class="scale-container">
             <div class="slider-wrapper">
-              <input type="range" min="1" max="5" value="3" step="1" id="slider${i}" aria-label="Rating for question ${i+1}">
+              <input type="range" min="1" max="5" value="3" step="1" id="slider${i}" oninput="updateDynamicLabel(${i}, this.value)">
               <div class="number-labels">
                 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
               </div>
@@ -294,8 +263,8 @@
             </div>
           </div>
           <div class="nav-buttons">
-            <button type="button" class="back-btn">Back</button>
-            <button type="button" class="next-btn">Next</button>
+            <button onclick="prevSlide()">Back</button>
+            <button class="next-button">Next</button>
           </div>
         </div>
       </div>
@@ -303,35 +272,18 @@
     container.appendChild(slide);
     sliderTouched[i] = false;
   });
-
   let currentSlide = 0;
   let slides;
-
   function initializeSlides() {
     slides = document.querySelectorAll('.slide');
-    // Set up navigation buttons and slider label updates
-    document.getElementById('startButton').onclick = () => showSlide(1);
-
-    // Question slide navigation
-    document.querySelectorAll('.question-slide').forEach((slide, i) => {
-      slide.querySelector('.back-btn').onclick = () => showSlide(i === 0 ? 0 : i);
-      slide.querySelector('.next-btn').onclick = () => {
-        if (i === questions.length - 1) showResult();
-        else showSlide(i + 2);
-      };
-      slide.querySelector('input[type="range"]').oninput = function () {
-        updateDynamicLabel(i, this.value);
-      };
+    const nextButtons = document.querySelectorAll('.next-button');
+    nextButtons.forEach((btn, i) => {
+      btn.textContent = i === nextButtons.length - 1 ? "See Result" : "Next";
+      btn.onclick = i === nextButtons.length - 1 ? showResult : nextSlide;
     });
-
-    // Result nav buttons
-    document.getElementById('backResult').onclick = () => showSlide(questions.length);
-    document.getElementById('restartBtn').onclick = resetAssessment;
-
-    // Initialize labels
-    questions.forEach((_, i) => updateDynamicLabel(i, 3, true));
+    document.getElementById('startButton').onclick = nextSlide;
+    questions.forEach((_, i) => updateDynamicLabel(i, 3, i === 0));
   }
-
   function updateDynamicLabel(index, value, skipAnimation = false) {
     const label = document.getElementById(`labelDisplay${index}`);
     if (sliderTouched[index]) {
@@ -342,23 +294,30 @@
     } else {
       label.textContent = labelsMap[value];
       sliderTouched[index] = true;
-      if (!skipAnimation) label.classList.add('fade');
+      if (!skipAnimation) {
+        label.classList.add('fade');
+      }
     }
   }
-
   function showSlide(index) {
     slides[currentSlide].classList.remove('active');
     currentSlide = index;
     slides[currentSlide].classList.add('active');
   }
-
+  function nextSlide() {
+    if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+  }
+  function prevSlide() {
+    if (currentSlide > 0) showSlide(currentSlide - 1);
+  }
   function showResult() {
     const answers = questions.map((_, i) => parseInt(document.getElementById(`slider${i}`)?.value || "0"));
     const total = answers.reduce((a, b) => a + b, 0);
     const resultText = document.getElementById('resultText');
     const nextMove = document.getElementById('nextMove');
-    const link = `<br><a href="https://empower.prosci.com/cmma-quick-assessment#go-to-form" target="_blank" style="color:var(--primary);text-decoration:underline;"><strong>Click here to request a meeting.</strong></a>`;
-    let result = '', move = '';
+    const link = `<br><a href="https://empower.prosci.com/cmma-quick-assessment#go-to-form" target="_blank" style="color:var(--primary); text-decoration: underline;"><strong>Click here to request a meeting.</strong></a>`;
+    let result = '';
+    let move = '';
     if (total <= 9) {
       result = 'Level 1: Ad Hoc or Absent';
       move = `<p>You're taking the first steps in your change management journey. While changes happen in your organization, they lack structured support and a consistent approach.</p>
@@ -384,7 +343,6 @@
     nextMove.innerHTML = move;
     showSlide(slides.length - 1);
   }
-
   function resetAssessment() {
     questions.forEach((_, i) => {
       const slider = document.getElementById(`slider${i}`);
@@ -397,6 +355,7 @@
     });
     showSlide(0);
   }
-
   window.onload = initializeSlides;
 </script>
+</body>
+</html>
